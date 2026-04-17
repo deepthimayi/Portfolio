@@ -1,6 +1,6 @@
 # Deepthimayi Pesala — Portfolio
 
-Cinematic personal portfolio built with Next.js 14, Tailwind CSS, and Framer Motion. Turquoise/black/white design system with liquid glass UI elements, custom cursor, and scroll-triggered animations.
+Cinematic personal portfolio built with Next.js 16, Tailwind CSS, and Framer Motion. Turquoise/black/white design system with liquid glass UI elements, custom cursor, and scroll-triggered animations.
 
 ## Quick Start
 
