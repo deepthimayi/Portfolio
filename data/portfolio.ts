@@ -32,23 +32,76 @@ export const heroStats = [
 export const skills = [
   {
     cluster: "Languages",
-    items: ["Java", "Python", "JavaScript", "C/C++", "SQL"],
+    gradientA: "#3b82f6",
+    gradientB: "#6366f1",
+    items: [
+      { name: "Java",       color: "#f89820" },
+      { name: "Python",     color: "#3572A5" },
+      { name: "JavaScript", color: "#F7DF1E" },
+      { name: "C / C++",    color: "#00599C" },
+      { name: "SQL",        color: "#2dd4d4" },
+    ],
   },
   {
-    cluster: "Cloud & DevOps",
-    items: ["AWS EC2", "AWS S3", "AWS Lambda", "Docker", "Kubernetes", "Kafka", "CI/CD", "Jenkins", "Bitbucket"],
+    cluster: "Cloud & Infrastructure",
+    gradientA: "#0ea5e9",
+    gradientB: "#2dd4d4",
+    items: [
+      { name: "AWS EC2",     color: "#FF9900" },
+      { name: "AWS S3",      color: "#FF9900" },
+      { name: "AWS Lambda",  color: "#FF9900" },
+      { name: "Docker",      color: "#2496ED" },
+      { name: "Kubernetes",  color: "#326CE5" },
+      { name: "Kafka",       color: "#a855f7" },
+    ],
   },
   {
-    cluster: "Web & APIs",
-    items: ["Spring Boot", "REST APIs", "SOAP", "Microservices", "OAuth 2.0", "JWT", "React", "JUnit"],
+    cluster: "Backend & APIs",
+    gradientA: "#10b981",
+    gradientB: "#0891b2",
+    items: [
+      { name: "Spring Boot",  color: "#6DB33F" },
+      { name: "Microservices",color: "#2dd4d4" },
+      { name: "REST APIs",    color: "#2dd4d4" },
+      { name: "SOAP",         color: "#7aacac" },
+      { name: "OAuth 2.0",    color: "#f97316" },
+      { name: "JWT",          color: "#f59e0b" },
+      { name: "React",        color: "#61DAFB" },
+    ],
   },
   {
-    cluster: "Databases & Tools",
-    items: ["MySQL", "MongoDB", "Git", "Postman", "Datadog", "JMeter", "LoadRunner"],
+    cluster: "Databases",
+    gradientA: "#f97316",
+    gradientB: "#ef4444",
+    items: [
+      { name: "MySQL",   color: "#4479A1" },
+      { name: "MongoDB", color: "#47A248" },
+    ],
+  },
+  {
+    cluster: "DevOps & CI/CD",
+    gradientA: "#8b5cf6",
+    gradientB: "#ec4899",
+    items: [
+      { name: "Jenkins",   color: "#D24939" },
+      { name: "Bitbucket", color: "#0052CC" },
+      { name: "CI/CD",     color: "#2dd4d4" },
+      { name: "Git",       color: "#F05032" },
+    ],
+  },
+  {
+    cluster: "Testing & Tools",
+    gradientA: "#f59e0b",
+    gradientB: "#f97316",
+    items: [
+      { name: "JUnit",      color: "#25A162" },
+      { name: "JMeter",     color: "#D22128" },
+      { name: "LoadRunner", color: "#7aacac" },
+      { name: "Postman",    color: "#FF6C37" },
+      { name: "Datadog",    color: "#632CA6" },
+    ],
   },
 ]
-
-export const currentlyLearning = ["Next.js", "TypeScript", "System Design"]
 
 export const projects = [
   {

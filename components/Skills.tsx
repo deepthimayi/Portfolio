@@ -1,124 +1,90 @@
 "use client";
 
-import { useRef, useCallback, useEffect } from "react";
+import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { skills } from "@/data/portfolio";
 
-type Skill = { name: string; color: string };
+type SkillCluster = (typeof skills)[0];
 
-const belt1: Skill[] = [
-  { name: "Java",           color: "#f89820" },
-  { name: "Python",         color: "#3572A5" },
-  { name: "JavaScript",     color: "#F7DF1E" },
-  { name: "TypeScript",     color: "#3178C6" },
-  { name: "C/C++",          color: "#00599C" },
-  { name: "SQL",            color: "#2dd4d4" },
-  { name: "Docker",         color: "#2496ED" },
-  { name: "Kubernetes",     color: "#326CE5" },
-  { name: "Kafka",          color: "#a855f7" },
-];
-
-const belt2: Skill[] = [
-  { name: "AWS EC2",        color: "#FF9900" },
-  { name: "AWS S3",         color: "#FF9900" },
-  { name: "AWS Lambda",     color: "#FF9900" },
-  { name: "CI/CD",          color: "#2dd4d4" },
-  { name: "Jenkins",        color: "#D24939" },
-  { name: "Bitbucket",      color: "#0052CC" },
-  { name: "Spring Boot",    color: "#6DB33F" },
-  { name: "Microservices",  color: "#2dd4d4" },
-  { name: "REST APIs",      color: "#2dd4d4" },
-];
-
-const belt3: Skill[] = [
-  { name: "React",          color: "#61DAFB" },
-  { name: "OAuth 2.0",      color: "#2dd4d4" },
-  { name: "JWT",            color: "#2dd4d4" },
-  { name: "JUnit",          color: "#25A162" },
-  { name: "MySQL",          color: "#4479A1" },
-  { name: "MongoDB",        color: "#47A248" },
-  { name: "Git",            color: "#F05032" },
-  { name: "Postman",        color: "#FF6C37" },
-  { name: "Datadog",        color: "#632CA6" },
-  { name: "JMeter",         color: "#D22128" },
-  { name: "LoadRunner",     color: "#2dd4d4" },
-];
-
-const belts = [
-  { skills: belt1, direction: "left",  duration: 32 },
-  { skills: belt2, direction: "right", duration: 28 },
-  { skills: belt3, direction: "left",  duration: 38 },
-] as const;
-
-function useDragScroll(ref: React.RefObject<HTMLDivElement | null>) {
-  const isDragging = useRef(false);
-  const startX = useRef(0);
-  const scrollLeft = useRef(0);
-
-  const onPointerDown = useCallback((e: React.PointerEvent) => {
-    if (!ref.current) return;
-    isDragging.current = true;
-    startX.current = e.clientX - ref.current.getBoundingClientRect().left;
-    scrollLeft.current = ref.current.scrollLeft;
-    ref.current.setPointerCapture(e.pointerId);
-    ref.current.style.cursor = "grabbing";
-  }, [ref]);
-
-  const onPointerMove = useCallback((e: React.PointerEvent) => {
-    if (!isDragging.current || !ref.current) return;
-    e.preventDefault();
-    const x = e.clientX - ref.current.getBoundingClientRect().left;
-    const delta = (x - startX.current) * 1.4;
-    ref.current.scrollLeft = scrollLeft.current - delta;
-  }, [ref]);
-
-  const onPointerUp = useCallback((_e: React.PointerEvent) => {
-    isDragging.current = false;
-    if (ref.current) ref.current.style.cursor = "grab";
-  }, [ref]);
-
-  return { onPointerDown, onPointerMove, onPointerUp };
-}
-
-function Belt({ skills, direction, duration }: { skills: readonly Skill[]; direction: "left" | "right"; duration: number }) {
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  const drag = useDragScroll(wrapperRef);
-  // Duplicate 4× for seamless loop across all screen widths
-  const repeated = [...skills, ...skills, ...skills, ...skills];
-
+function SkillCard({ cluster, delay }: { cluster: SkillCluster; delay: number }) {
   return (
-    <div
-      ref={wrapperRef}
-      className="relative overflow-hidden"
-      style={{ cursor: "grab" }}
-      {...drag}
+    <motion.div
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ delay, duration: 0.55, ease: [0.22, 1, 0.36, 1] as const }}
+      style={{
+        borderRadius: 16,
+        overflow: "hidden",
+        border: "1px solid var(--border-hover)",
+        boxShadow: "0 4px 24px rgba(0,0,0,0.18)",
+      }}
     >
-      {/* Left fade */}
+      {/* Gradient header */}
       <div
-        aria-hidden="true"
-        className="pointer-events-none absolute left-0 top-0 bottom-0 z-10"
-        style={{ width: 100, background: "linear-gradient(to right, var(--bg-primary), transparent)" }}
-      />
-      {/* Right fade */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute right-0 top-0 bottom-0 z-10"
-        style={{ width: 100, background: "linear-gradient(to left, var(--bg-primary), transparent)" }}
-      />
-
-      <div
-        className="belt-track"
         style={{
-          animation: `marquee-${direction} ${duration}s linear infinite`,
+          background: `linear-gradient(135deg, ${cluster.gradientA} 0%, ${cluster.gradientB} 100%)`,
+          padding: "14px 20px 13px",
         }}
       >
-        {repeated.map((skill, i) => (
-          <span key={i} className="sk-pill">
-            <span className="sk-dot" style={{ background: skill.color }} />
-            {skill.name}
-          </span>
+        <h3
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontWeight: 700,
+            fontSize: "12px",
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+            color: "#ffffff",
+            margin: 0,
+          }}
+        >
+          {cluster.cluster}
+        </h3>
+      </div>
+
+      {/* Skills list */}
+      <div
+        style={{
+          background: "var(--bg-card)",
+          padding: "16px 20px 20px",
+          display: "flex",
+          flexDirection: "column",
+          gap: 11,
+        }}
+      >
+        {cluster.items.map((skill) => (
+          <div key={skill.name} style={{ display: "flex", alignItems: "center", gap: 11 }}>
+            {/* Colored icon square */}
+            <div
+              style={{
+                width: 26,
+                height: 26,
+                borderRadius: 7,
+                background: `${skill.color}22`,
+                border: `1px solid ${skill.color}55`,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexShrink: 0,
+              }}
+            >
+              <div style={{ width: 9, height: 9, borderRadius: "50%", background: skill.color }} />
+            </div>
+            <span
+              style={{
+                fontFamily: "var(--font-body)",
+                fontWeight: 400,
+                fontSize: "13.5px",
+                color: "var(--text-primary)",
+                lineHeight: 1,
+              }}
+            >
+              {skill.name}
+            </span>
+          </div>
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -132,15 +98,14 @@ export default function Skills() {
       ref={ref}
       className="relative"
       style={{
-        background: "var(--bg-primary)",
+        background: "var(--bg-secondary)",
         paddingTop: "clamp(64px, 10vw, 128px)",
         paddingBottom: "clamp(64px, 10vw, 128px)",
       }}
     >
       <div aria-hidden="true" className="absolute top-0 left-0 right-0 h-px" style={{ background: "var(--border)" }} />
 
-      {/* Header — constrained width */}
-      <div className="page-container mb-12">
+      <div className="page-container">
         <motion.p
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
@@ -159,40 +124,22 @@ export default function Skills() {
             fontWeight: 400,
             color: "var(--text-primary)",
             lineHeight: 1.1,
+            marginBottom: "clamp(36px, 6vw, 56px)",
           }}
         >
           The tools I wield.
         </motion.h2>
+
+        {/* Card grid — 1 col mobile, 2 col tablet, 3 col desktop */}
+        <div
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+          style={{ gap: "clamp(14px, 2vw, 22px)" }}
+        >
+          {skills.map((cluster, i) => (
+            <SkillCard key={cluster.cluster} cluster={cluster} delay={i * 0.07} />
+          ))}
+        </div>
       </div>
-
-      {/* Belts — full bleed */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={isInView ? { opacity: 1 } : {}}
-        transition={{ delay: 0.25, duration: 0.6 }}
-        className="space-y-0"
-        style={{ rowGap: "1.4rem", display: "flex", flexDirection: "column", gap: "1.4rem" }}
-      >
-        {belts.map((belt, i) => (
-          <div key={i}>
-            <p
-              className="page-container"
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: "10px",
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                color: "var(--text-muted)",
-                marginBottom: "0.7rem",
-              }}
-            >
-              {i === 0 ? "Languages & Infrastructure" : i === 1 ? "Cloud & DevOps" : "Web, APIs & Databases"}
-            </p>
-            <Belt skills={belt.skills} direction={belt.direction} duration={belt.duration} />
-          </div>
-        ))}
-      </motion.div>
-
     </section>
   );
 }
