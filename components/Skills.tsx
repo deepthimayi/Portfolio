@@ -141,7 +141,7 @@ export default function Skills() {
       <div aria-hidden="true" className="absolute top-0 left-0 right-0 h-px" style={{ background: "var(--border)" }} />
 
       {/* Header — constrained width */}
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 md:px-14 lg:px-16 mb-12">
+      <div className="page-container mb-12">
         <motion.p
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
@@ -177,7 +177,7 @@ export default function Skills() {
         {belts.map((belt, i) => (
           <div key={i}>
             <p
-              className="max-w-7xl mx-auto px-6 sm:px-10 md:px-14 lg:px-16"
+              className="page-container"
               style={{
                 fontFamily: "var(--font-mono)",
                 fontSize: "10px",
@@ -199,7 +199,7 @@ export default function Skills() {
         initial={{ opacity: 0 }}
         animate={isInView ? { opacity: 1 } : {}}
         transition={{ delay: 0.5, duration: 0.6 }}
-        className="max-w-7xl mx-auto px-6 sm:px-10 md:px-14 lg:px-16 mt-14"
+        className="page-container mt-14"
         style={{ borderTop: "1px solid var(--border)", paddingTop: "clamp(24px, 4vw, 40px)" }}
       >
         <p

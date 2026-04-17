@@ -72,7 +72,7 @@ export default function Contact() {
         <div style={{ width: "min(700px, 90vw)", height: "min(700px, 90vw)", borderRadius: "50%", background: "radial-gradient(circle, var(--accent-glow) 0%, transparent 70%)" }} />
       </div>
 
-      <div className="max-w-5xl mx-auto px-5 sm:px-8 md:px-12 relative z-10">
+      <div className="page-container relative z-10">
         {/* Section label */}
         <motion.p initial={{ opacity: 0 }} animate={isInView ? { opacity: 1 } : {}} className="section-label mb-8 md:mb-12 flex justify-center text-center">
           <span>04</span>&nbsp;— Contact

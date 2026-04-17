@@ -58,7 +58,7 @@ export default function Hero() {
       />
 
       {/* ─── Content wrapper ─── */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 md:px-14 lg:px-16 pt-24 pb-20">
+      <div className="page-container relative z-10 pt-24 pb-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-6 items-center min-h-[calc(100svh-88px)]">
 
           {/* ── Left: Text ── */}

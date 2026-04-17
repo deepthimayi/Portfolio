@@ -136,7 +136,7 @@ export default function Projects() {
     >
       <div aria-hidden="true" className="absolute top-0 left-0 right-0 h-px" style={{ background: "var(--border)" }} />
 
-      <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12">
+      <div className="page-container">
         <motion.p initial={{ opacity: 0 }} animate={isInView ? { opacity: 1 } : {}} className="section-label mb-4">
           <span>03</span> — Projects
         </motion.p>

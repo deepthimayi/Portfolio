@@ -61,7 +61,7 @@ export default function About() {
     >
       <div aria-hidden="true" className="absolute top-0 left-0 right-0 h-px" style={{ background: "var(--border)" }} />
 
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 md:px-14 lg:px-16">
+      <div className="page-container">
         {/* Label */}
         <motion.p
           initial={{ opacity: 0 }} animate={isInView ? { opacity: 1 } : {}}
