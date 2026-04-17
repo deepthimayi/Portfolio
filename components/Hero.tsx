@@ -34,16 +34,6 @@ export default function Hero() {
       className="relative min-h-screen flex items-center overflow-hidden"
       style={{ background: "var(--bg-primary)" }}
     >
-      {/* Subtle grid */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: "linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px)",
-          backgroundSize: "64px 64px",
-          opacity: 0.5,
-        }}
-      />
 
       {/* Glow behind photo */}
       <div
@@ -78,7 +68,7 @@ export default function Hero() {
             </motion.p>
 
             <h1 style={{ fontFamily: "var(--font-display)", lineHeight: 1 }} className="mb-0">
-              <span className="block overflow-hidden pb-1">
+              <span className="block pb-1" style={{ overflowY: "clip" }}>
                 {firstNameWords.map((word, i) => (
                   <motion.span
                     key={i}
@@ -88,7 +78,7 @@ export default function Hero() {
                     variants={wordVariant}
                     className="inline-block mr-3"
                     style={{
-                      fontSize: "clamp(48px, 8.5vw, 104px)",
+                      fontSize: "clamp(40px, 6vw, 88px)",
                       fontWeight: 700,
                       color: "var(--text-primary)",
                       lineHeight: 1,
@@ -98,7 +88,7 @@ export default function Hero() {
                   </motion.span>
                 ))}
               </span>
-              <span className="block overflow-hidden pb-2">
+              <span className="block pb-2" style={{ overflowY: "clip" }}>
                 {lastNameWords.map((word, i) => (
                   <motion.span
                     key={i}
@@ -108,7 +98,7 @@ export default function Hero() {
                     variants={wordVariant}
                     className="inline-block"
                     style={{
-                      fontSize: "clamp(48px, 8.5vw, 104px)",
+                      fontSize: "clamp(40px, 6vw, 88px)",
                       fontWeight: 700,
                       color: "var(--accent)",
                       lineHeight: 1,

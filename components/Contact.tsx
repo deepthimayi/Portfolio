@@ -2,24 +2,8 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import { FileDown, Mail, Send, CheckCircle, AlertCircle } from "lucide-react";
-import { GithubIcon, LinkedinIcon } from "@/components/icons";
-import { links, personal } from "@/data/portfolio";
-
-const wordVariant = {
-  hidden: { opacity: 0, y: 32 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.1, duration: 0.7, ease: [0.22, 1, 0.36, 1] as const },
-  }),
-};
-
-const ctaButtons = [
-  { href: links.resume, label: "Resume", icon: FileDown, download: true, external: false },
-  { href: links.github, label: "GitHub ↗", icon: GithubIcon, download: false, external: true },
-  { href: links.linkedin, label: "LinkedIn ↗", icon: LinkedinIcon, download: false, external: true },
-];
+import { Send, CheckCircle, AlertCircle } from "lucide-react";
+import { personal } from "@/data/portfolio";
 
 type Status = "idle" | "loading" | "success" | "error";
 
@@ -31,8 +15,6 @@ export default function Contact() {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
 
-  const headlineWords = ["Let's", "Build", "Something."];
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -41,7 +23,6 @@ export default function Contact() {
     e.preventDefault();
     setStatus("loading");
     setErrorMsg("");
-
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
@@ -63,182 +44,175 @@ export default function Contact() {
       id="contact"
       ref={ref}
       className="relative overflow-hidden"
-      style={{ background: "var(--bg-primary)", paddingTop: "clamp(80px, 12vw, 160px)", paddingBottom: "clamp(80px, 10vw, 140px)" }}
+      style={{
+        background: "var(--bg-primary)",
+        paddingTop: "clamp(64px, 10vw, 128px)",
+        paddingBottom: "clamp(64px, 10vw, 128px)",
+      }}
     >
       <div aria-hidden="true" className="absolute top-0 left-0 right-0 h-px" style={{ background: "var(--border)" }} />
 
-      {/* Glow */}
+      {/* Subtle glow */}
       <div aria-hidden="true" className="absolute inset-0 pointer-events-none flex items-center justify-center">
-        <div style={{ width: "min(700px, 90vw)", height: "min(700px, 90vw)", borderRadius: "50%", background: "radial-gradient(circle, var(--accent-glow) 0%, transparent 70%)" }} />
+        <div style={{ width: "min(600px, 80vw)", height: "min(600px, 80vw)", borderRadius: "50%", background: "radial-gradient(circle, var(--accent-glow) 0%, transparent 70%)" }} />
       </div>
 
       <div className="page-container relative z-10">
-        {/* Section label */}
-        <motion.p initial={{ opacity: 0 }} animate={isInView ? { opacity: 1 } : {}} className="section-label mb-8 md:mb-12 flex justify-center text-center">
-          <span>04</span>&nbsp;— Contact
+        <motion.p initial={{ opacity: 0 }} animate={isInView ? { opacity: 1 } : {}} className="section-label mb-10">
+          <span>05</span> — Contact
         </motion.p>
 
         {/* Headline */}
-        <h2
-          className="mb-5 md:mb-6 text-center"
-          style={{ fontFamily: "var(--font-display)", fontWeight: 300, fontSize: "clamp(38px, 9vw, 92px)", lineHeight: 1.05, color: "var(--text-primary)", letterSpacing: "-0.02em" }}
+        <motion.h2
+          initial={{ opacity: 0, y: 28 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }}
+          style={{
+            fontFamily: "var(--font-display)",
+            fontWeight: 400,
+            fontSize: "clamp(32px, 6vw, 72px)",
+            lineHeight: 1.1,
+            color: "var(--text-primary)",
+            letterSpacing: "-0.02em",
+            marginBottom: 16,
+          }}
         >
-          {headlineWords.map((word, i) => (
-            <motion.span key={word + i} custom={i} initial="hidden" animate={isInView ? "visible" : "hidden"} variants={wordVariant} className="inline-block mr-[0.2em]">
-              {word === "Something." ? <span style={{ color: "var(--accent)" }}>{word}</span> : word}
-            </motion.span>
-          ))}
-        </h2>
+          Let&apos;s build{" "}
+          <em style={{ color: "var(--accent)", fontStyle: "italic" }}>something.</em>
+        </motion.h2>
 
         <motion.p
-          initial={{ opacity: 0, y: 16 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.35 }}
-          className="text-center mb-10 md:mb-14"
-          style={{ fontFamily: "var(--font-body)", fontWeight: 300, fontSize: "clamp(14px, 2vw, 18px)", color: "var(--text-secondary)", lineHeight: 1.6 }}
+          initial={{ opacity: 0, y: 16 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.2 }}
+          style={{
+            fontFamily: "var(--font-body)",
+            fontWeight: 300,
+            fontSize: "clamp(14px, 1.6vw, 17px)",
+            color: "var(--text-secondary)",
+            lineHeight: 1.7,
+            marginBottom: "clamp(36px, 6vw, 60px)",
+            maxWidth: 480,
+          }}
         >
           Open to full-time roles, collaborations, and interesting problems.
         </motion.p>
 
-        {/* ─── Contact form + sidebar layout ─── */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6 md:gap-8">
-
-          {/* Form */}
-          <motion.form
-            initial={{ opacity: 0, y: 24 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.45 }}
-            onSubmit={handleSubmit}
-            className="glass rounded-2xl p-6 sm:p-8 flex flex-col gap-5"
-          >
-            {/* Name + Email row */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="flex flex-col gap-2">
-                <label htmlFor="name" style={{ fontFamily: "var(--font-mono)", fontSize: "10px", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--text-muted)" }}>
-                  Your Name
-                </label>
-                <input
-                  id="name"
-                  name="name"
-                  type="text"
-                  required
-                  value={form.name}
-                  onChange={handleChange}
-                  placeholder="Deepthimayi"
-                  className="contact-input"
-                />
-              </div>
-              <div className="flex flex-col gap-2">
-                <label htmlFor="email" style={{ fontFamily: "var(--font-mono)", fontSize: "10px", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--text-muted)" }}>
-                  Your Email
-                </label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  required
-                  value={form.email}
-                  onChange={handleChange}
-                  placeholder="you@example.com"
-                  className="contact-input"
-                />
-              </div>
-            </div>
-
-            {/* Message */}
+        {/* Form — centered, max-width */}
+        <motion.form
+          initial={{ opacity: 0, y: 24 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.3 }}
+          onSubmit={handleSubmit}
+          style={{ maxWidth: 640, display: "flex", flexDirection: "column", gap: 24 }}
+        >
+          {/* Name + Email */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div className="flex flex-col gap-2">
-              <label htmlFor="message" style={{ fontFamily: "var(--font-mono)", fontSize: "10px", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--text-muted)" }}>
-                Message
+              <label
+                htmlFor="name"
+                style={{ fontFamily: "var(--font-mono)", fontSize: "10px", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--text-muted)" }}
+              >
+                Name
               </label>
-              <textarea
-                id="message"
-                name="message"
+              <input
+                id="name"
+                name="name"
+                type="text"
                 required
-                rows={5}
-                value={form.message}
+                value={form.name}
                 onChange={handleChange}
-                placeholder="Tell me about the role, project, or idea..."
-                className="contact-input resize-none"
+                placeholder="Your name"
+                className="contact-input"
               />
             </div>
-
-            {/* Status feedback */}
-            {status === "success" && (
-              <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-2" style={{ color: "var(--accent)", fontFamily: "var(--font-mono)", fontSize: "12px" }}>
-                <CheckCircle size={15} /> Message sent! I&apos;ll get back to you soon.
-              </motion.div>
-            )}
-            {status === "error" && (
-              <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-2" style={{ color: "#f87171", fontFamily: "var(--font-mono)", fontSize: "12px" }}>
-                <AlertCircle size={15} /> {errorMsg}
-              </motion.div>
-            )}
-
-            {/* Submit */}
-            <button
-              type="submit"
-              disabled={status === "loading"}
-              className="btn-glass-submit"
-              aria-label="Send message"
-            >
-              {status === "loading" ? (
-                <span className="flex items-center gap-2 justify-center">
-                  <span className="loading-dot" /> Sending...
-                </span>
-              ) : (
-                <span className="flex items-center gap-2 justify-center">
-                  <Send size={14} /> Send Message
-                </span>
-              )}
-            </button>
-          </motion.form>
-
-          {/* Sidebar */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.55 }}
-            className="flex flex-col gap-4"
-          >
-            {/* Email card */}
-            <div className="glass rounded-2xl p-5 flex flex-col gap-3">
-              <p style={{ fontFamily: "var(--font-mono)", fontSize: "10px", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--text-muted)" }}>Email</p>
-              <a
-                href={`mailto:${links.email}`}
-                className="underline-slide flex items-start gap-2 transition-colors duration-200 hover:text-[var(--accent)]"
-                style={{ fontFamily: "var(--font-body)", fontWeight: 300, fontSize: "13px", color: "var(--text-primary)", wordBreak: "break-all" }}
+            <div className="flex flex-col gap-2">
+              <label
+                htmlFor="email"
+                style={{ fontFamily: "var(--font-mono)", fontSize: "10px", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--text-muted)" }}
               >
-                <Mail size={14} style={{ color: "var(--accent)", flexShrink: 0, marginTop: 2 }} />
-                {links.email}
-              </a>
+                Email
+              </label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                required
+                value={form.email}
+                onChange={handleChange}
+                placeholder="you@example.com"
+                className="contact-input"
+              />
             </div>
+          </div>
 
-            {/* Links card */}
-            <div className="glass rounded-2xl p-5 flex flex-col gap-3">
-              <p style={{ fontFamily: "var(--font-mono)", fontSize: "10px", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--text-muted)" }}>Links</p>
-              <div className="flex flex-col gap-2">
-                {ctaButtons.map((btn) => {
-                  const Icon = btn.icon;
-                  return (
-                    <a
-                      key={btn.label}
-                      href={btn.href}
-                      {...(btn.download ? { download: true } : {})}
-                      {...(btn.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                      className="btn-glass"
-                      aria-label={btn.label}
-                      style={{ justifyContent: "center", fontSize: "11px", padding: "9px 16px" }}
-                    >
-                      <Icon size={13} /> {btn.label}
-                    </a>
-                  );
-                })}
-              </div>
-            </div>
-          </motion.div>
-        </div>
+          {/* Message */}
+          <div className="flex flex-col gap-2">
+            <label
+              htmlFor="message"
+              style={{ fontFamily: "var(--font-mono)", fontSize: "10px", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--text-muted)" }}
+            >
+              Message
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              required
+              rows={6}
+              value={form.message}
+              onChange={handleChange}
+              placeholder="Tell me about the role, project, or idea..."
+              className="contact-input resize-none"
+            />
+          </div>
+
+          {/* Status */}
+          {status === "success" && (
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="flex items-center gap-2"
+              style={{ color: "var(--accent)", fontFamily: "var(--font-mono)", fontSize: "12px" }}
+            >
+              <CheckCircle size={14} /> Message sent — I&apos;ll get back to you soon.
+            </motion.div>
+          )}
+          {status === "error" && (
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="flex items-center gap-2"
+              style={{ color: "#f87171", fontFamily: "var(--font-mono)", fontSize: "12px" }}
+            >
+              <AlertCircle size={14} /> {errorMsg}
+            </motion.div>
+          )}
+
+          <button
+            type="submit"
+            disabled={status === "loading"}
+            className="btn-glass-submit"
+            style={{ alignSelf: "flex-start", minWidth: 160 }}
+          >
+            {status === "loading" ? (
+              <span className="flex items-center gap-2 justify-center">
+                <span className="loading-dot" /> Sending...
+              </span>
+            ) : (
+              <span className="flex items-center gap-2 justify-center">
+                <Send size={14} /> Send Message
+              </span>
+            )}
+          </button>
+        </motion.form>
       </div>
 
       {/* Footer */}
       <div
-        className="relative z-10 mt-14 md:mt-20 mx-5 sm:mx-8 md:mx-12 pt-6 flex items-center justify-center"
-        style={{ borderTop: "1px solid var(--border)" }}
+        className="page-container relative z-10 mt-16"
+        style={{ borderTop: "1px solid var(--border)", paddingTop: 24 }}
       >
-        <p style={{ fontFamily: "var(--font-mono)", fontSize: "10px", letterSpacing: "0.1em", color: "var(--text-muted)", textAlign: "center" }}>
+        <p style={{ fontFamily: "var(--font-mono)", fontSize: "10px", letterSpacing: "0.1em", color: "var(--text-muted)" }}>
           Designed &amp; Built by {personal.name} · 2025
         </p>
       </div>

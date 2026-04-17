@@ -129,45 +129,31 @@ export default function About() {
             <div style={{ width: 40, height: 1, background: "var(--accent)", opacity: 0.45, margin: "clamp(24px, 4vw, 36px) 0" }} />
 
             {/* Education */}
-            <div className="space-y-3">
-              <p style={{ fontFamily: "var(--font-mono)", fontSize: "10px", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--text-muted)", marginBottom: 10 }}>
+            <div>
+              <p style={{ fontFamily: "var(--font-mono)", fontSize: "10px", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--text-muted)", marginBottom: 20 }}>
                 Education
               </p>
 
-              {[
-                { degree: "M.S. Computer Engineering", school: "Cal State Fullerton", period: "Jan '24 – Dec '25", note: "GPA 3.94" },
-                { degree: "B.Tech Electronics & Communication", school: "BVRIT Hyderabad", period: "Aug '17 – Aug '21", note: "" },
-              ].map((edu) => (
-                <div key={edu.degree} className="glass rounded-xl p-4 sm:p-5">
-                  <div className="flex items-start justify-between gap-3 flex-wrap">
-                    <div>
-                      <p style={{ fontFamily: "var(--font-body)", fontWeight: 500, fontSize: "14px", color: "var(--text-primary)" }}>
-                        {edu.degree}
-                      </p>
-                      <p style={{ fontFamily: "var(--font-body)", fontWeight: 300, fontSize: "13px", color: "var(--text-secondary)", marginTop: 3 }}>
-                        {edu.school} · {edu.period}
-                      </p>
-                    </div>
-                    {edu.note && (
-                      <span
-                        style={{
-                          fontFamily: "var(--font-mono)",
-                          fontSize: "10px",
-                          letterSpacing: "0.08em",
-                          color: "var(--accent)",
-                          border: "1px solid var(--border-hover)",
-                          borderRadius: "100px",
-                          padding: "2px 10px",
-                          whiteSpace: "nowrap",
-                          flexShrink: 0,
-                        }}
-                      >
-                        {edu.note}
-                      </span>
-                    )}
+              <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+                {[
+                  { degree: "M.S. Computer Engineering", school: "Cal State Fullerton", period: "Jan '24 – Dec '25", note: "GPA 3.94" },
+                  { degree: "B.Tech Electronics & Communication", school: "BVRIT Hyderabad", period: "Aug '17 – Aug '21", note: "" },
+                ].map((edu) => (
+                  <div key={edu.degree} style={{ borderLeft: "2px solid var(--accent)", paddingLeft: 16 }}>
+                    <p style={{ fontFamily: "var(--font-body)", fontWeight: 500, fontSize: "14px", color: "var(--text-primary)", lineHeight: 1.4 }}>
+                      {edu.degree}
+                      {edu.note && (
+                        <span style={{ fontFamily: "var(--font-mono)", fontSize: "10px", letterSpacing: "0.08em", color: "var(--accent)", marginLeft: 10 }}>
+                          {edu.note}
+                        </span>
+                      )}
+                    </p>
+                    <p style={{ fontFamily: "var(--font-body)", fontWeight: 300, fontSize: "13px", color: "var(--text-secondary)", marginTop: 4 }}>
+                      {edu.school} · {edu.period}
+                    </p>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </motion.div>
 

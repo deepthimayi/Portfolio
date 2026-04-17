@@ -2,7 +2,6 @@
 
 import { useRef, useCallback, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
-import { currentlyLearning } from "@/data/portfolio";
 
 type Skill = { name: string; color: string };
 
@@ -194,32 +193,6 @@ export default function Skills() {
         ))}
       </motion.div>
 
-      {/* Currently Exploring */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={isInView ? { opacity: 1 } : {}}
-        transition={{ delay: 0.5, duration: 0.6 }}
-        className="page-container mt-14"
-        style={{ borderTop: "1px solid var(--border)", paddingTop: "clamp(24px, 4vw, 40px)" }}
-      >
-        <p
-          className="mb-4"
-          style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: "10px",
-            letterSpacing: "0.2em",
-            textTransform: "uppercase",
-            color: "var(--text-muted)",
-          }}
-        >
-          Currently Exploring
-        </p>
-        <div className="flex flex-wrap gap-2">
-          {currentlyLearning.map((item) => (
-            <span key={item} className="pill pill-learning">{item}</span>
-          ))}
-        </div>
-      </motion.div>
     </section>
   );
 }
