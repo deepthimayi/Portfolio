@@ -10,7 +10,6 @@ type IconDef =
   | { kind: "devicon"; cls: string; forceColor?: string }
   | { kind: "lucide";  Icon: LucideIcon; color: string };
 
-/* ── Complete icon map — every skill has an icon ── */
 const ICON: Record<string, IconDef> = {
   // Languages
   "Java":             { kind: "devicon", cls: "devicon-java-original colored" },
@@ -20,26 +19,22 @@ const ICON: Record<string, IconDef> = {
   "SQL":              { kind: "devicon", cls: "devicon-postgresql-original colored" },
   "C#":               { kind: "devicon", cls: "devicon-csharp-original colored" },
   "C++":              { kind: "devicon", cls: "devicon-cplusplus-original colored" },
-
   // Frontend
   "React":            { kind: "devicon", cls: "devicon-react-original colored" },
   "React Native":     { kind: "devicon", cls: "devicon-react-original colored" },
   "Vue.js":           { kind: "devicon", cls: "devicon-vuejs-original colored" },
   "Angular":          { kind: "devicon", cls: "devicon-angularjs-original colored" },
   "Figma":            { kind: "devicon", cls: "devicon-figma-original colored" },
-
   // Backend
   "Node.js":          { kind: "devicon", cls: "devicon-nodejs-original colored" },
   "Next.js":          { kind: "devicon", cls: "devicon-nextjs-original", forceColor: "#e2e8f0" },
   "Express.js":       { kind: "devicon", cls: "devicon-express-original", forceColor: "#e2e8f0" },
   "Flask":            { kind: "devicon", cls: "devicon-flask-original", forceColor: "#e2e8f0" },
   "Auth.js":          { kind: "lucide",  Icon: ShieldCheck, color: "#2dd4d4" },
-
   // Databases
   "MySQL":            { kind: "devicon", cls: "devicon-mysql-original colored" },
   "MongoDB":          { kind: "devicon", cls: "devicon-mongodb-original colored" },
   "Snowflake":        { kind: "devicon", cls: "devicon-snowflake-plain colored" },
-
   // Cloud & Infrastructure
   "AWS":              { kind: "devicon", cls: "devicon-amazonwebservices-plain-wordmark colored" },
   "Azure":            { kind: "devicon", cls: "devicon-azure-original colored" },
@@ -48,14 +43,12 @@ const ICON: Record<string, IconDef> = {
   "Kubernetes":       { kind: "devicon", cls: "devicon-kubernetes-plain colored" },
   "GitHub":           { kind: "devicon", cls: "devicon-github-original", forceColor: "#e2e8f0" },
   "Kafka":            { kind: "lucide",  Icon: Activity, color: "#a855f7" },
-
   // CI/CD & DevOps
   "Jenkins":          { kind: "devicon", cls: "devicon-jenkins-original colored" },
   "Bitbucket":        { kind: "devicon", cls: "devicon-bitbucket-original colored" },
   "TeamCity":         { kind: "lucide",  Icon: GitBranch, color: "#2dd4d4" },
   "Confluence":       { kind: "lucide",  Icon: BookOpen, color: "#0052CC" },
   "Trello":           { kind: "devicon", cls: "devicon-trello-plain colored" },
-
   // Developer Tools
   "VS Code":          { kind: "devicon", cls: "devicon-vscode-original colored" },
   "IntelliJ IDEA":    { kind: "devicon", cls: "devicon-intellij-original colored" },
@@ -63,7 +56,6 @@ const ICON: Record<string, IconDef> = {
   "Git":              { kind: "devicon", cls: "devicon-git-original colored" },
   "Claude Code":      { kind: "lucide",  Icon: Bot, color: "#2dd4d4" },
   "ChatGPT":          { kind: "devicon", cls: "devicon-openai-original", forceColor: "#e2e8f0" },
-
   // Testing & QA
   "Postman":          { kind: "devicon", cls: "devicon-postman-original colored" },
   "Apache JMeter":    { kind: "devicon", cls: "devicon-apache-plain colored" },
@@ -77,37 +69,20 @@ type SkillCluster = { cluster: string; items: SkillItem[] };
 
 function SkillIcon({ name, color }: { name: string; color: string }) {
   const def = ICON[name];
+  const SIZE = 24;
 
+  if (!def)      return <Cpu size={SIZE} color={color} strokeWidth={1.6} />;
+  if (def.kind === "lucide") return <def.Icon size={SIZE} color={def.color} strokeWidth={1.6} />;
   return (
-    <div
+    <i
+      className={def.cls}
       style={{
-        width: 30,
-        height: 30,
-        borderRadius: 8,
-        background: `${color}18`,
-        border: `1px solid ${color}30`,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        flexShrink: 0,
+        fontSize: SIZE + 4,
+        lineHeight: 1,
+        display: "block",
+        ...(def.forceColor ? { color: def.forceColor } : {}),
       }}
-    >
-      {!def ? (
-        <Cpu size={15} color={color} />
-      ) : def.kind === "lucide" ? (
-        <def.Icon size={15} color={def.color} strokeWidth={1.8} />
-      ) : (
-        <i
-          className={def.cls}
-          style={{
-            fontSize: 17,
-            lineHeight: 1,
-            display: "block",
-            ...(def.forceColor ? { color: def.forceColor } : {}),
-          }}
-        />
-      )}
-    </div>
+    />
   );
 }
 
@@ -119,19 +94,19 @@ function SkillCard({ cluster, delay }: { cluster: SkillCluster; delay: number })
       viewport={{ once: true, margin: "-60px" }}
       transition={{ delay, duration: 0.55, ease: [0.22, 1, 0.36, 1] as const }}
       style={{
-        borderRadius: 14,
+        borderRadius: 16,
         overflow: "hidden",
         border: "1px solid var(--border-hover)",
         background: "var(--bg-card)",
-        boxShadow: "0 2px 20px rgba(0,0,0,0.22)",
+        boxShadow: "0 4px 24px rgba(0,0,0,0.25)",
       }}
     >
-      {/* Header */}
+      {/* Gradient header */}
       <div
         style={{
-          background: "linear-gradient(135deg, rgba(45,212,212,0.13) 0%, rgba(45,212,212,0.04) 100%)",
+          background: "linear-gradient(135deg, rgba(45,212,212,0.18) 0%, rgba(45,212,212,0.06) 100%)",
           borderBottom: "1px solid var(--border-hover)",
-          padding: "14px 18px 13px",
+          padding: "14px 18px",
         }}
       >
         <h3
@@ -139,7 +114,7 @@ function SkillCard({ cluster, delay }: { cluster: SkillCluster; delay: number })
             fontFamily: "var(--font-mono)",
             fontWeight: 700,
             fontSize: "13px",
-            letterSpacing: "0.12em",
+            letterSpacing: "0.14em",
             textTransform: "uppercase",
             color: "var(--accent)",
             margin: 0,
@@ -149,24 +124,46 @@ function SkillCard({ cluster, delay }: { cluster: SkillCluster; delay: number })
         </h3>
       </div>
 
-      {/* Skill rows */}
-      <div style={{ padding: "14px 18px 18px", display: "flex", flexDirection: "column", gap: 11 }}>
-        {cluster.items.map((skill) => (
-          <div key={skill.name} style={{ display: "flex", alignItems: "center", gap: 11 }}>
-            <SkillIcon name={skill.name} color={skill.color} />
-            <span
+      {/* Inner panel — "card within card" inset effect matching reference */}
+      <div style={{ padding: "8px 10px 10px" }}>
+        <div
+          style={{
+            background: "var(--bg-primary)",
+            borderRadius: 10,
+            padding: "10px 14px",
+            display: "flex",
+            flexDirection: "column",
+            gap: 0,
+          }}
+        >
+          {cluster.items.map((skill, i) => (
+            <div
+              key={skill.name}
               style={{
-                fontFamily: "var(--font-body)",
-                fontWeight: 400,
-                fontSize: "13px",
-                color: "var(--text-primary)",
-                lineHeight: 1,
+                display: "flex",
+                alignItems: "center",
+                gap: 13,
+                padding: "9px 0",
+                borderBottom: i < cluster.items.length - 1
+                  ? "1px solid var(--border)"
+                  : "none",
               }}
             >
-              {skill.name}
-            </span>
-          </div>
-        ))}
+              <SkillIcon name={skill.name} color={skill.color} />
+              <span
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontWeight: 400,
+                  fontSize: "14px",
+                  color: "var(--text-primary)",
+                  lineHeight: 1,
+                }}
+              >
+                {skill.name}
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
     </motion.div>
   );
