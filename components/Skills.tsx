@@ -2,40 +2,109 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { ShieldCheck, Bot, Gauge, Network, GitBranch, BookOpen, Cpu, Activity } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { skills } from "@/data/portfolio";
 
-type Skill = { name: string; icon: string | null; color: string; useColored: boolean };
-type SkillCluster = { cluster: string; items: Skill[] };
+type IconDef =
+  | { kind: "devicon"; cls: string; forceColor?: string }
+  | { kind: "lucide";  Icon: LucideIcon; color: string };
 
-function SkillIcon({ skill }: { skill: Skill }) {
+/* ── Complete icon map — every skill has an icon ── */
+const ICON: Record<string, IconDef> = {
+  // Languages
+  "Java":             { kind: "devicon", cls: "devicon-java-original colored" },
+  "Python":           { kind: "devicon", cls: "devicon-python-original colored" },
+  "JavaScript":       { kind: "devicon", cls: "devicon-javascript-original colored" },
+  "TypeScript":       { kind: "devicon", cls: "devicon-typescript-original colored" },
+  "SQL":              { kind: "devicon", cls: "devicon-postgresql-original colored" },
+  "C#":               { kind: "devicon", cls: "devicon-csharp-original colored" },
+  "C++":              { kind: "devicon", cls: "devicon-cplusplus-original colored" },
+
+  // Frontend
+  "React":            { kind: "devicon", cls: "devicon-react-original colored" },
+  "React Native":     { kind: "devicon", cls: "devicon-react-original colored" },
+  "Vue.js":           { kind: "devicon", cls: "devicon-vuejs-original colored" },
+  "Angular":          { kind: "devicon", cls: "devicon-angularjs-original colored" },
+  "Figma":            { kind: "devicon", cls: "devicon-figma-original colored" },
+
+  // Backend
+  "Node.js":          { kind: "devicon", cls: "devicon-nodejs-original colored" },
+  "Next.js":          { kind: "devicon", cls: "devicon-nextjs-original", forceColor: "#e2e8f0" },
+  "Express.js":       { kind: "devicon", cls: "devicon-express-original", forceColor: "#e2e8f0" },
+  "Flask":            { kind: "devicon", cls: "devicon-flask-original", forceColor: "#e2e8f0" },
+  "Auth.js":          { kind: "lucide",  Icon: ShieldCheck, color: "#2dd4d4" },
+
+  // Databases
+  "MySQL":            { kind: "devicon", cls: "devicon-mysql-original colored" },
+  "MongoDB":          { kind: "devicon", cls: "devicon-mongodb-original colored" },
+  "Snowflake":        { kind: "devicon", cls: "devicon-snowflake-plain colored" },
+
+  // Cloud & Infrastructure
+  "AWS":              { kind: "devicon", cls: "devicon-amazonwebservices-plain-wordmark colored" },
+  "Azure":            { kind: "devicon", cls: "devicon-azure-original colored" },
+  "GCP":              { kind: "devicon", cls: "devicon-googlecloud-original colored" },
+  "Docker":           { kind: "devicon", cls: "devicon-docker-original colored" },
+  "Kubernetes":       { kind: "devicon", cls: "devicon-kubernetes-plain colored" },
+  "GitHub":           { kind: "devicon", cls: "devicon-github-original", forceColor: "#e2e8f0" },
+  "Kafka":            { kind: "lucide",  Icon: Activity, color: "#a855f7" },
+
+  // CI/CD & DevOps
+  "Jenkins":          { kind: "devicon", cls: "devicon-jenkins-original colored" },
+  "Bitbucket":        { kind: "devicon", cls: "devicon-bitbucket-original colored" },
+  "TeamCity":         { kind: "lucide",  Icon: GitBranch, color: "#2dd4d4" },
+  "Confluence":       { kind: "lucide",  Icon: BookOpen, color: "#0052CC" },
+  "Trello":           { kind: "devicon", cls: "devicon-trello-plain colored" },
+
+  // Developer Tools
+  "VS Code":          { kind: "devicon", cls: "devicon-vscode-original colored" },
+  "IntelliJ IDEA":    { kind: "devicon", cls: "devicon-intellij-original colored" },
+  "Jira":             { kind: "devicon", cls: "devicon-jira-original colored" },
+  "Git":              { kind: "devicon", cls: "devicon-git-original colored" },
+  "Claude Code":      { kind: "lucide",  Icon: Bot, color: "#2dd4d4" },
+  "ChatGPT":          { kind: "devicon", cls: "devicon-openai-original", forceColor: "#e2e8f0" },
+
+  // Testing & QA
+  "Postman":          { kind: "devicon", cls: "devicon-postman-original colored" },
+  "Apache JMeter":    { kind: "devicon", cls: "devicon-apache-plain colored" },
+  "LoadRunner":       { kind: "lucide",  Icon: Gauge, color: "#7aacac" },
+  "Fiddler":          { kind: "lucide",  Icon: Network, color: "#00b800" },
+  "Datadog":          { kind: "devicon", cls: "devicon-datadog-original colored" },
+};
+
+type SkillItem = { name: string; color: string };
+type SkillCluster = { cluster: string; items: SkillItem[] };
+
+function SkillIcon({ name, color }: { name: string; color: string }) {
+  const def = ICON[name];
+
   return (
     <div
       style={{
-        width: 28,
-        height: 28,
-        borderRadius: 7,
-        background: `${skill.color}18`,
-        border: `1px solid ${skill.color}35`,
+        width: 30,
+        height: 30,
+        borderRadius: 8,
+        background: `${color}18`,
+        border: `1px solid ${color}30`,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         flexShrink: 0,
       }}
     >
-      {skill.icon ? (
+      {!def ? (
+        <Cpu size={15} color={color} />
+      ) : def.kind === "lucide" ? (
+        <def.Icon size={15} color={def.color} strokeWidth={1.8} />
+      ) : (
         <i
-          className={skill.useColored ? `${skill.icon} colored` : skill.icon}
+          className={def.cls}
           style={{
-            fontSize: 16,
+            fontSize: 17,
             lineHeight: 1,
             display: "block",
-            ...(!skill.useColored ? { color: skill.color } : {}),
+            ...(def.forceColor ? { color: def.forceColor } : {}),
           }}
-        />
-      ) : (
-        /* Fallback: colored dot for skills without devicon */
-        <div
-          style={{ width: 9, height: 9, borderRadius: "50%", background: skill.color }}
         />
       )}
     </div>
@@ -54,23 +123,23 @@ function SkillCard({ cluster, delay }: { cluster: SkillCluster; delay: number })
         overflow: "hidden",
         border: "1px solid var(--border-hover)",
         background: "var(--bg-card)",
-        boxShadow: "0 2px 16px rgba(0,0,0,0.2)",
+        boxShadow: "0 2px 20px rgba(0,0,0,0.22)",
       }}
     >
-      {/* Header — teal-tinted, matches site palette */}
+      {/* Header */}
       <div
         style={{
-          background: "linear-gradient(135deg, rgba(45,212,212,0.12) 0%, rgba(45,212,212,0.04) 100%)",
+          background: "linear-gradient(135deg, rgba(45,212,212,0.13) 0%, rgba(45,212,212,0.04) 100%)",
           borderBottom: "1px solid var(--border-hover)",
-          padding: "13px 18px 12px",
+          padding: "14px 18px 13px",
         }}
       >
         <h3
           style={{
             fontFamily: "var(--font-mono)",
             fontWeight: 700,
-            fontSize: "10px",
-            letterSpacing: "0.2em",
+            fontSize: "13px",
+            letterSpacing: "0.12em",
             textTransform: "uppercase",
             color: "var(--accent)",
             margin: 0,
@@ -81,10 +150,10 @@ function SkillCard({ cluster, delay }: { cluster: SkillCluster; delay: number })
       </div>
 
       {/* Skill rows */}
-      <div style={{ padding: "14px 18px 18px", display: "flex", flexDirection: "column", gap: 10 }}>
+      <div style={{ padding: "14px 18px 18px", display: "flex", flexDirection: "column", gap: 11 }}>
         {cluster.items.map((skill) => (
           <div key={skill.name} style={{ display: "flex", alignItems: "center", gap: 11 }}>
-            <SkillIcon skill={skill} />
+            <SkillIcon name={skill.name} color={skill.color} />
             <span
               style={{
                 fontFamily: "var(--font-body)",
@@ -145,7 +214,6 @@ export default function Skills() {
           The tools I wield.
         </motion.h2>
 
-        {/* 2 cols mobile → 3 cols tablet → 4 cols desktop */}
         <div
           className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
           style={{ gap: "clamp(10px, 1.5vw, 18px)" }}
