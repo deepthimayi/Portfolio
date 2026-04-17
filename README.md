@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Deepthimayi Pesala — Portfolio
 
-## Getting Started
+Cinematic personal portfolio built with Next.js 14, Tailwind CSS, and Framer Motion. Turquoise/black/white design system with liquid glass UI elements, custom cursor, and scroll-triggered animations.
 
-First, run the development server:
+## Quick Start
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Customization Steps
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 1. Add your photo
+Drop your photo at:
+```
+public/images/deepthimayi.jpg
+```
+Recommended: portrait crop, minimum 800×1000px.
 
-## Learn More
+### 2. Add your resume PDF
+Drop your resume at:
+```
+public/Deepthimayi_Resume.pdf
+```
 
-To learn more about Next.js, take a look at the following resources:
+### 3. Add CASKO font (optional)
+If you have the CASKO font files, place them at:
+```
+public/fonts/CASKO.woff2
+public/fonts/CASKO-Bold.woff2
+```
+Without the font, it falls back to Cormorant Garamond (loaded from Google Fonts).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 4. Update content
+All content lives in one file:
+```
+data/portfolio.ts
+```
+Update your links, projects, skills, and bio there.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 5. Deploy to Vercel
+```bash
+git push origin main
+```
+Then import the repo at [vercel.com/new](https://vercel.com/new). Zero config needed.
 
-## Deploy on Vercel
+## Stack
+- **Next.js 16** (App Router, TypeScript)
+- **Tailwind CSS** + custom CSS variables
+- **Framer Motion** — scroll animations, stagger, hover
+- **Lucide React** — icons
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Design System
+| Token | Value |
+|---|---|
+| Background | `#050a0a` |
+| Accent | `#2dd4d4` (turquoise) |
+| Text Primary | `#f0f7f7` |
+| Text Secondary | `#7aacac` |
+| Font Display | CASKO / Cormorant Garamond |
+| Font Body | Outfit |
+| Font Mono | Space Mono |
