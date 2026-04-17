@@ -74,8 +74,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${playfair.variable} ${outfit.variable} ${spaceMono.variable}`}
     >
       <head>
-        {/* Anti-FOUC: set theme before first paint */}
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
       </head>
       <body className="min-h-screen antialiased">{children}</body>
     </html>
