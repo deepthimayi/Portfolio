@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
-import { Outfit, Space_Mono } from "next/font/google";
+import { Outfit, Space_Mono, Playfair_Display } from "next/font/google";
 import "./globals.css";
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  style: ["normal", "italic"],
+  variable: "--font-playfair",
+  display: "swap",
+});
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -23,7 +31,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Deepthimayi Pesala — Software Engineer",
     description: "Building systems that scale. Writing code that endures.",
-    url: "https://deepthimayi.vercel.app",
+    url: "https://deepthimayi-portfolio.vercel.app",
     type: "website",
     siteName: "Deepthimayi Pesala",
   },
@@ -52,12 +60,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${outfit.variable} ${spaceMono.variable}`}
+      className={`${playfair.variable} ${outfit.variable} ${spaceMono.variable}`}
       style={{ scrollBehavior: "smooth" }}
     >
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-      </head>
       <body className="min-h-screen antialiased">{children}</body>
     </html>
   );

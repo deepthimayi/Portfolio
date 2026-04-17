@@ -34,7 +34,7 @@
   --border: rgba(45, 212, 212, 0.08);
   --border-hover: rgba(45, 212, 212, 0.35);
   --white: #ffffff;
-  --font-display: "CASKO", "Cormorant Garamond", Georgia, serif;
+  --font-display: "CASKO", var(--font-playfair, "Playfair Display"), Georgia, serif;
   --font-body: var(--font-outfit, "Outfit", system-ui, sans-serif);
   --font-mono: var(--font-space-mono, "Space Mono", "Courier New", monospace);
 }

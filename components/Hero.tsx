@@ -243,9 +243,9 @@ export default function Hero() {
                   alt="Deepthimayi Pesala"
                   fill
                   priority
-                  className="object-cover"
+                  className="object-cover object-top"
                   style={{
-                    filter: "grayscale(15%) contrast(1.08) sepia(0.08)",
+                    filter: "grayscale(10%) contrast(1.05) brightness(1.02)",
                   }}
                 />
                 {/* Grain overlay */}
