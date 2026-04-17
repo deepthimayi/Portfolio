@@ -60,6 +60,7 @@ export default function Contact() {
       <div className="page-container relative z-10">
         <motion.p initial={{ opacity: 0 }} animate={isInView ? { opacity: 1 } : {}} className="section-label mb-10">
           <span>05</span> — Contact
+
         </motion.p>
 
         {/* Headline */}
@@ -106,44 +107,44 @@ export default function Contact() {
           onSubmit={handleSubmit}
           style={{ maxWidth: 640, display: "flex", flexDirection: "column", gap: 24 }}
         >
-          {/* Name + Email */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <div className="flex flex-col gap-2">
-              <label
-                htmlFor="name"
-                style={{ fontFamily: "var(--font-mono)", fontSize: "10px", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--text-muted)" }}
-              >
-                Name
-              </label>
-              <input
-                id="name"
-                name="name"
-                type="text"
-                required
-                value={form.name}
-                onChange={handleChange}
-                placeholder="Your name"
-                className="contact-input"
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <label
-                htmlFor="email"
-                style={{ fontFamily: "var(--font-mono)", fontSize: "10px", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--text-muted)" }}
-              >
-                Email
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                required
-                value={form.email}
-                onChange={handleChange}
-                placeholder="you@example.com"
-                className="contact-input"
-              />
-            </div>
+          {/* Name */}
+          <div className="flex flex-col gap-2">
+            <label
+              htmlFor="name"
+              style={{ fontFamily: "var(--font-mono)", fontSize: "10px", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--text-muted)" }}
+            >
+              Name
+            </label>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              required
+              value={form.name}
+              onChange={handleChange}
+              placeholder="Your name"
+              className="contact-input"
+            />
+          </div>
+
+          {/* Email */}
+          <div className="flex flex-col gap-2">
+            <label
+              htmlFor="email"
+              style={{ fontFamily: "var(--font-mono)", fontSize: "10px", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--text-muted)" }}
+            >
+              Email
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              required
+              value={form.email}
+              onChange={handleChange}
+              placeholder="you@example.com"
+              className="contact-input"
+            />
           </div>
 
           {/* Message */}
