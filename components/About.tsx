@@ -168,7 +168,7 @@ export default function About() {
                   M.S. Computer Engineering
                 </p>
                 <p style={{ fontFamily: "var(--font-body)", fontWeight: 300, fontSize: "13px", color: "var(--text-secondary)", marginTop: 4 }}>
-                  Cal State Fullerton · Jan &#39;24 – Dec &#39;25
+                  Cal State Fullerton · Jan &#39;24 – Dec &#39;25 · GPA 3.94
                 </p>
               </div>
               <div className="glass rounded-xl p-4 sm:p-5">

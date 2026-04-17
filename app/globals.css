@@ -376,6 +376,115 @@ main {
   z-index: 1;
 }
 
+/* ─── Contact Form Inputs ─── */
+.contact-input {
+  width: 100%;
+  padding: 12px 16px;
+  background: rgba(45, 212, 212, 0.04);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 300;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  caret-color: var(--accent);
+}
+
+.contact-input::placeholder {
+  color: var(--text-muted);
+}
+
+.contact-input:focus {
+  border-color: var(--accent);
+  background: rgba(45, 212, 212, 0.06);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+/* ─── Submit Button (Apple liquid glass style) ─── */
+.btn-glass-submit {
+  width: 100%;
+  padding: 14px 24px;
+  background: var(--accent-glow);
+  border: 1px solid var(--accent);
+  border-radius: 12px;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: none;
+  transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.08) inset,
+    0 4px 16px rgba(0,0,0,0.2);
+}
+
+.btn-glass-submit::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,0.1) 0%,
+    transparent 50%,
+    rgba(0,0,0,0.05) 100%
+  );
+  pointer-events: none;
+}
+
+.btn-glass-submit:hover:not(:disabled) {
+  background: rgba(45, 212, 212, 0.15);
+  box-shadow:
+    0 0 24px var(--accent-glow),
+    0 1px 0 rgba(255,255,255,0.12) inset,
+    0 8px 24px rgba(0,0,0,0.25);
+  transform: translateY(-1px);
+}
+
+.btn-glass-submit:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-glass-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Loading dot animation */
+@keyframes dotPulse {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50%       { opacity: 1;   transform: scale(1.1); }
+}
+
+.loading-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: dotPulse 1s ease-in-out infinite;
+}
+
+/* ─── Apple liquid glass: upgrade .btn-glass ─── */
+.btn-glass {
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.08) inset,
+    0 4px 16px rgba(0,0,0,0.15);
+}
+
+.btn-glass:hover {
+  box-shadow:
+    0 0 20px var(--accent-glow),
+    0 1px 0 rgba(255,255,255,0.12) inset,
+    0 8px 20px rgba(0,0,0,0.2);
+}
+
 /* ─── Reduced Motion ─── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

@@ -4,7 +4,7 @@ export const personal = {
   nameLast: "Pesala.",
   title: "Software Engineer",
   tagline: "Building systems that scale. Writing code that endures.",
-  bio: "I'm a software engineer who thrives at the intersection of scalable systems and real-world impact. With 2+ years at Capgemini, I built microservices processing 50,000+ insurance transactions daily, cut authorization latency by 60%, and kept production at 99.9% uptime — all while earning my Master's in Computer Engineering at Cal State Fullerton. I care deeply about the craft: clean architecture, thoughtful abstractions, and systems built to last.",
+  bio: "I'm a software engineer who loves turning complex problems into clean, reliable systems. With 2+ years of industry experience at Capgemini and a Master's in Computer Engineering from Cal State Fullerton, I've worked across the full stack — from cloud infrastructure and microservices to APIs and front-end. I care deeply about craft: readable code, thoughtful architecture, and software that actually holds up in production.",
   location: "Santa Clara, CA",
   phone: "(203) 361-1293",
 }
@@ -18,15 +18,15 @@ export const links = {
 
 export const stats = [
   { value: "2+", label: "Years Experience" },
-  { value: "50K+", label: "Daily Transactions" },
-  { value: "40%", label: "Error Reduction" },
-  { value: "99.9%", label: "Uptime Maintained" },
+  { value: "3.94", label: "GPA (M.S.)" },
+  { value: "4", label: "Featured Projects" },
+  { value: "10+", label: "Technologies" },
 ]
 
 export const heroStats = [
-  { value: "2+ yrs", label: "experience" },
-  { value: "50K+", label: "daily txns" },
-  { value: "99.9%", label: "uptime" },
+  { value: "2+", label: "years exp." },
+  { value: "M.S.", label: "comp. eng." },
+  { value: "4", label: "projects" },
 ]
 
 export const skills = [
