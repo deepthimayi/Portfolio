@@ -24,20 +24,14 @@ function ProjectCard({
     <motion.article
       initial={{ opacity: 0, y: 32 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ delay: index * 0.12, duration: 0.6, ease: [0.22, 1, 0.36, 1] as const }}
-      whileHover={{ y: -6, transition: { duration: 0.2 } }}
-      className="glass glass-hover rounded-2xl p-7 flex flex-col group"
-      style={{ height: "100%" }}
+      transition={{ delay: index * 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] as const }}
+      whileHover={{ y: -4, transition: { duration: 0.2 } }}
+      className="glass glass-hover rounded-2xl p-5 sm:p-6 md:p-7 flex flex-col group"
     >
       {/* Number */}
       <p
-        className="mb-5"
-        style={{
-          fontFamily: "var(--font-mono)",
-          fontSize: "11px",
-          color: "var(--text-muted)",
-          letterSpacing: "0.1em",
-        }}
+        className="mb-4"
+        style={{ fontFamily: "var(--font-mono)", fontSize: "11px", color: "var(--text-muted)", letterSpacing: "0.1em" }}
       >
         {project.number}
       </p>
@@ -48,10 +42,9 @@ function ProjectCard({
         style={{
           fontFamily: "var(--font-body)",
           fontWeight: 500,
-          fontSize: "20px",
+          fontSize: "clamp(16px, 2vw, 20px)",
           color: "var(--text-primary)",
           lineHeight: 1.3,
-          transition: "color 0.2s ease",
         }}
       >
         <span className="group-hover:text-[var(--accent)] transition-colors duration-200">
@@ -61,12 +54,12 @@ function ProjectCard({
 
       {/* Description */}
       <p
-        className="mb-6 flex-1"
+        className="mb-5 flex-1"
         style={{
           fontFamily: "var(--font-body)",
           fontWeight: 300,
-          fontSize: "14px",
-          lineHeight: 1.7,
+          fontSize: "clamp(13px, 1.5vw, 14px)",
+          lineHeight: 1.75,
           color: "var(--text-secondary)",
         }}
       >
@@ -74,7 +67,7 @@ function ProjectCard({
       </p>
 
       {/* Tech stack */}
-      <div className="flex flex-wrap gap-2 mb-6">
+      <div className="flex flex-wrap gap-2 mb-5">
         {project.tech.map((t) => (
           <span
             key={t}
@@ -85,7 +78,7 @@ function ProjectCard({
               borderRadius: "100px",
               fontFamily: "var(--font-mono)",
               fontSize: "10px",
-              letterSpacing: "0.06em",
+              letterSpacing: "0.05em",
               color: "var(--accent)",
               background: "rgba(45,212,212,0.05)",
             }}
@@ -121,12 +114,7 @@ function ProjectCard({
         )}
         <span
           className="ml-auto"
-          style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: "10px",
-            color: "var(--text-muted)",
-            letterSpacing: "0.08em",
-          }}
+          style={{ fontFamily: "var(--font-mono)", fontSize: "10px", color: "var(--text-muted)", letterSpacing: "0.08em" }}
         >
           View Project →
         </span>
@@ -143,21 +131,13 @@ export default function Projects() {
     <section
       id="projects"
       ref={ref}
-      className="relative py-32 md:py-40"
+      className="relative py-20 md:py-28 lg:py-36"
       style={{ background: "var(--bg-secondary)" }}
     >
-      <div
-        aria-hidden="true"
-        className="absolute top-0 left-0 right-0 h-px"
-        style={{ background: "var(--border)" }}
-      />
+      <div aria-hidden="true" className="absolute top-0 left-0 right-0 h-px" style={{ background: "var(--border)" }} />
 
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          className="section-label mb-4"
-        >
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12">
+        <motion.p initial={{ opacity: 0 }} animate={isInView ? { opacity: 1 } : {}} className="section-label mb-4">
           <span>03</span> — Projects
         </motion.p>
 
@@ -167,24 +147,20 @@ export default function Projects() {
           animate={isInView ? "visible" : "hidden"}
           style={{
             fontFamily: "var(--font-display)",
-            fontSize: "clamp(32px, 5vw, 60px)",
+            fontSize: "clamp(28px, 5vw, 56px)",
             fontWeight: 400,
             color: "var(--text-primary)",
             lineHeight: 1.1,
-            marginBottom: "64px",
+            marginBottom: "clamp(36px, 5vw, 56px)",
           }}
         >
           Things I&apos;ve built.
         </motion.h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* 1 col on phone, 2 col on sm+ */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
           {projects.map((project, i) => (
-            <ProjectCard
-              key={project.number}
-              project={project}
-              index={i}
-              isInView={isInView}
-            />
+            <ProjectCard key={project.number} project={project} index={i} isInView={isInView} />
           ))}
         </div>
       </div>
