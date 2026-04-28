@@ -2,13 +2,14 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { ShieldCheck, Bot, Gauge, Network, GitBranch, BookOpen, Cpu, Activity } from "lucide-react";
+import { ShieldCheck, Gauge, Network, Cpu } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { skills } from "@/data/portfolio";
 
 type IconDef =
   | { kind: "devicon"; cls: string; forceColor?: string }
-  | { kind: "lucide";  Icon: LucideIcon; color: string };
+  | { kind: "lucide";  Icon: LucideIcon; color: string }
+  | { kind: "img";     src: string };
 
 const ICON: Record<string, IconDef> = {
   // Languages
@@ -23,7 +24,7 @@ const ICON: Record<string, IconDef> = {
   "React":            { kind: "devicon", cls: "devicon-react-original colored" },
   "React Native":     { kind: "devicon", cls: "devicon-react-original colored" },
   "Vue.js":           { kind: "devicon", cls: "devicon-vuejs-original colored" },
-  "Angular":          { kind: "devicon", cls: "devicon-angularjs-original colored" },
+  "Angular":          { kind: "devicon", cls: "devicon-angular-original colored" },
   "Figma":            { kind: "devicon", cls: "devicon-figma-original colored" },
   // Backend
   "Node.js":          { kind: "devicon", cls: "devicon-nodejs-original colored" },
@@ -36,26 +37,24 @@ const ICON: Record<string, IconDef> = {
   "MongoDB":          { kind: "devicon", cls: "devicon-mongodb-original colored" },
   "Snowflake":        { kind: "devicon", cls: "devicon-snowflake-plain colored" },
   // Cloud & Infrastructure
-  "AWS":              { kind: "devicon", cls: "devicon-amazonwebservices-plain-wordmark colored" },
+  "AWS":              { kind: "devicon", cls: "devicon-amazonwebservices-original colored" },
   "Azure":            { kind: "devicon", cls: "devicon-azure-original colored" },
   "GCP":              { kind: "devicon", cls: "devicon-googlecloud-original colored" },
   "Docker":           { kind: "devicon", cls: "devicon-docker-original colored" },
   "Kubernetes":       { kind: "devicon", cls: "devicon-kubernetes-plain colored" },
   "GitHub":           { kind: "devicon", cls: "devicon-github-original", forceColor: "#e2e8f0" },
-  "Kafka":            { kind: "lucide",  Icon: Activity, color: "#a855f7" },
+  "Kafka":            { kind: "img", src: "https://cdn.simpleicons.org/apachekafka/a855f7" },
   // CI/CD & DevOps
   "Jenkins":          { kind: "devicon", cls: "devicon-jenkins-original colored" },
   "Bitbucket":        { kind: "devicon", cls: "devicon-bitbucket-original colored" },
-  "TeamCity":         { kind: "lucide",  Icon: GitBranch, color: "#2dd4d4" },
-  "Confluence":       { kind: "lucide",  Icon: BookOpen, color: "#0052CC" },
+  "TeamCity":         { kind: "img", src: "https://cdn.simpleicons.org/teamcity/2dd4d4" },
+  "Confluence":       { kind: "img", src: "https://cdn.simpleicons.org/confluence/0052CC" },
   "Trello":           { kind: "devicon", cls: "devicon-trello-plain colored" },
   // Developer Tools
   "VS Code":          { kind: "devicon", cls: "devicon-vscode-original colored" },
   "IntelliJ IDEA":    { kind: "devicon", cls: "devicon-intellij-original colored" },
   "Jira":             { kind: "devicon", cls: "devicon-jira-original colored" },
   "Git":              { kind: "devicon", cls: "devicon-git-original colored" },
-  "Claude Code":      { kind: "lucide",  Icon: Bot, color: "#2dd4d4" },
-  "ChatGPT":          { kind: "devicon", cls: "devicon-openai-original", forceColor: "#e2e8f0" },
   // Testing & QA
   "Postman":          { kind: "devicon", cls: "devicon-postman-original colored" },
   "Apache JMeter":    { kind: "devicon", cls: "devicon-apache-plain colored" },
@@ -64,7 +63,7 @@ const ICON: Record<string, IconDef> = {
   "Datadog":          { kind: "devicon", cls: "devicon-datadog-original colored" },
 };
 
-type SkillItem = { name: string; color: string };
+type SkillItem = { name: string; color: string; tier?: string };
 type SkillCluster = { cluster: string; items: SkillItem[] };
 
 function SkillIcon({ name, color }: { name: string; color: string }) {
@@ -157,10 +156,25 @@ function SkillCard({ cluster, delay }: { cluster: SkillCluster; delay: number })
                   fontSize: "14px",
                   color: "var(--text-primary)",
                   lineHeight: 1,
+                  flex: 1,
                 }}
               >
                 {skill.name}
               </span>
+              {/* Tier indicator: filled = primary, outlined = familiar */}
+              <div
+                title={skill.tier === "primary" ? "Primary skill" : "Familiar"}
+                style={{
+                  width: 6,
+                  height: 6,
+                  borderRadius: "50%",
+                  flexShrink: 0,
+                  background: skill.tier === "primary" ? "var(--accent)" : "transparent",
+                  border: skill.tier === "primary"
+                    ? "none"
+                    : "1.5px solid var(--border-hover)",
+                }}
+              />
             </div>
           ))}
         </div>

@@ -117,6 +117,32 @@ export const skills = [
 export const projects = [
   {
     number: "01",
+    slug: "morning-briefing-bot",
+    title: "Morning Briefing Bot",
+    tagline: "Personalized AI briefing, every morning at 6:30 AM",
+    description:
+      "Python agent that aggregates weather, calendar events, commute traffic, top news, and unread Gmail — then sends everything through Claude to generate a smart, context-aware morning briefing delivered as a desktop notification. Modular architecture with per-source error resilience and a plain-text fallback if the Claude API is unavailable.",
+    architectureNote: "Weather + Calendar + Traffic + News + Gmail → Claude API → Desktop notification",
+    overview:
+      "Built an autonomous morning briefing agent that wakes at 6:30 AM via Windows Task Scheduler, pulls live data from five sources — OpenWeatherMap, Google Calendar, Google Maps (commute traffic), NewsAPI, and Gmail — then synthesizes everything into a single smart summary via Claude. Each data module fails independently so partial briefings still deliver. Includes OAuth2 flows for Google services and a web dashboard for reviewing past briefings.",
+    tech: ["Python", "Claude API", "Google Calendar API", "Gmail API", "OpenWeatherMap", "NewsAPI"],
+    highlights: [
+      "Aggregates 5 live data sources into a single Claude-generated briefing",
+      "OAuth2 authentication for Google Calendar and Gmail",
+      "Per-source error resilience — partial briefings work if any source fails",
+      "Plain-text fallback if Claude API is unavailable",
+    ],
+    role: "Solo Developer",
+    year: "2025",
+    duration: "1 month",
+    codeUrl: "https://github.com/deepthimayi/Morning-Briefing-Bot",
+    github: "https://github.com/deepthimayi/Morning-Briefing-Bot",
+    gradientA: "#0a0805",
+    gradientB: "#2a1a05",
+    accent: "#f59e0b",
+  },
+  {
+    number: "02",
     slug: "rag-chatbot",
     title: "RAG Chatbot",
     tagline: "AI-powered document intelligence at scale",
@@ -141,7 +167,7 @@ export const projects = [
     accent: "#2dd4d4",
   },
   {
-    number: "02",
+    number: "03",
     slug: "food-delivery-app",
     title: "Food Delivery App",
     tagline: "Real-time order tracking for 1K+ users",
@@ -166,7 +192,7 @@ export const projects = [
     accent: "#f97316",
   },
   {
-    number: "03",
+    number: "04",
     slug: "performance-testing",
     title: "Performance Testing",
     tagline: "25% throughput gain through systematic load analysis",
@@ -192,7 +218,7 @@ export const projects = [
     accent: "#a855f7",
   },
   {
-    number: "04",
+    number: "05",
     slug: "eeg-deception-detection",
     title: "EEG Deception Detection",
     tagline: "Deep learning on neural signals",
@@ -216,32 +242,6 @@ export const projects = [
     gradientA: "#000a05",
     gradientB: "#002a14",
     accent: "#10b981",
-  },
-  {
-    number: "05",
-    slug: "morning-briefing-bot",
-    title: "Morning Briefing Bot",
-    tagline: "Personalized AI briefing, every morning at 6:30 AM",
-    description:
-      "Python agent that aggregates weather, calendar events, commute traffic, top news, and unread Gmail — then sends everything through Claude to generate a smart, context-aware morning briefing delivered as a desktop notification. Modular architecture with per-source error resilience and a plain-text fallback if the Claude API is unavailable.",
-    architectureNote: "Weather + Calendar + Traffic + News + Gmail → Claude API → Desktop notification",
-    overview:
-      "Built an autonomous morning briefing agent that wakes at 6:30 AM via Windows Task Scheduler, pulls live data from five sources — OpenWeatherMap, Google Calendar, Google Maps (commute traffic), NewsAPI, and Gmail — then synthesizes everything into a single smart summary via Claude. Each data module fails independently so partial briefings still deliver. Includes OAuth2 flows for Google services and a web dashboard for reviewing past briefings.",
-    tech: ["Python", "Claude API", "Google Calendar API", "Gmail API", "OpenWeatherMap", "NewsAPI"],
-    highlights: [
-      "Aggregates 5 live data sources into a single Claude-generated briefing",
-      "OAuth2 authentication for Google Calendar and Gmail",
-      "Per-source error resilience — partial briefings work if any source fails",
-      "Plain-text fallback if Claude API is unavailable",
-    ],
-    role: "Solo Developer",
-    year: "2025",
-    duration: "1 month",
-    codeUrl: "https://github.com/deepthimayi/Morning-Briefing-Bot",
-    github: "https://github.com/deepthimayi/Morning-Briefing-Bot",
-    gradientA: "#0a0805",
-    gradientB: "#2a1a05",
-    accent: "#f59e0b",
   },
 ]
 
