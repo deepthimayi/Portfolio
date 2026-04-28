@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FileDown, ChevronDown } from "lucide-react";
+import { FileDown, ChevronDown, Mail } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/icons";
 import Image from "next/image";
 import { personal, links, heroStats } from "@/data/portfolio";
@@ -53,19 +53,37 @@ export default function Hero() {
 
           {/* ── Left: Text ── */}
           <div className="flex flex-col justify-center order-2 lg:order-1">
-            <motion.p
+            <motion.div
               custom={0} initial="hidden" animate="visible" variants={fadeUp}
-              className="mb-5"
-              style={{
+              className="flex flex-wrap items-center gap-3 mb-5"
+            >
+              <span style={{
                 fontFamily: "var(--font-mono)",
                 fontSize: "11px",
                 letterSpacing: "0.22em",
                 textTransform: "uppercase",
                 color: "var(--accent)",
-              }}
-            >
-              — Software Engineer
-            </motion.p>
+              }}>
+                — Software Engineer
+              </span>
+              <span style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+                padding: "3px 10px",
+                borderRadius: 100,
+                border: "1px solid rgba(45,212,212,0.35)",
+                background: "rgba(45,212,212,0.07)",
+                fontFamily: "var(--font-mono)",
+                fontSize: "9px",
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: "var(--accent)",
+              }}>
+                <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#2dd4d4", display: "inline-block", boxShadow: "0 0 6px #2dd4d4" }} />
+                Open to roles · Bay Area / Remote
+              </span>
+            </motion.div>
 
             <h1 style={{ fontFamily: "var(--font-display)", lineHeight: 1 }} className="mb-0">
               <span className="block pb-1" style={{ overflowY: "clip" }}>
@@ -153,6 +171,13 @@ export default function Hero() {
               </a>
               <a href={links.linkedin} target="_blank" rel="noopener noreferrer" className="btn-glass" aria-label="LinkedIn">
                 <LinkedinIcon size={14} /> LinkedIn ↗
+              </a>
+              <a
+                href="mailto:deepthimayip@gmail.com?subject=Reaching%20Out%20to%20you%20from%20your%20portfolio"
+                className="btn-glass"
+                aria-label="Let's Connect"
+              >
+                <Mail size={14} /> Let&apos;s Connect
               </a>
             </motion.div>
           </div>
