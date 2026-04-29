@@ -81,7 +81,7 @@ export default function Hero() {
                 color: "var(--accent)",
               }}>
                 <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#2dd4d4", display: "inline-block", boxShadow: "0 0 6px #2dd4d4" }} />
-                Open to roles · Bay Area / Remote
+                Open to roles · Remote
               </span>
             </motion.div>
 

@@ -26,7 +26,6 @@ export const stats = [
 export const heroStats = [
   { value: "2+", label: "years exp." },
   { value: "M.S.", label: "comp. eng." },
-  { value: "100K+", label: "req / day" },
 ]
 
 // tier: "primary" = core competency, "familiar" = worked with / supporting skill
@@ -252,11 +251,11 @@ export const experience = [
     location: "Hyderabad, India",
     period: "Aug '21 – Dec '23",
     highlights: [
-      "Developed Java-based microservices processing **50K+** insurance transactions daily",
+      "Developed Java-based microservices processing 50K+ insurance transactions daily",
       "Integrated AWS S3, Lambda, CloudWatch & DynamoDB for secure, async processing",
-      "Built API integration layer handling **100K+** requests/day, reducing auth latency by **60%**",
-      "Maintained **99.9%** uptime across weekly production deployments",
-      "Improved test coverage to **75%** with JUnit; managed CI/CD via Jenkins & Docker",
+      "Built API integration layer handling 100K+ requests/day, reducing auth latency by 60%",
+      "Maintained 99.9% uptime across weekly production deployments",
+      "Improved test coverage to 75% with JUnit; managed CI/CD via Jenkins & Docker",
     ],
   },
   {
@@ -266,7 +265,7 @@ export const experience = [
     period: "Apr '21 – Jul '21",
     highlights: [
       "Implemented RESTful APIs with Spring Boot & Hibernate, integrated with React UI",
-      "Improved application reliability by **15%** through better API integration patterns",
+      "Improved application reliability by 15% through better API integration patterns",
       "Designed scalable backend services for multi-tier applications",
     ],
   },

@@ -34,7 +34,7 @@ export default function About() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
 
-          {/* ── Left ── */}
+          {/* ── Left: heading + stats ── */}
           <motion.div variants={fadeUp} initial="hidden" animate={isInView ? "visible" : "hidden"}>
             {/* Geometric mark */}
             <div className="relative mb-8" style={{ width: 56, height: 56 }} aria-hidden="true">
@@ -51,6 +51,7 @@ export default function About() {
                 color: "var(--text-primary)",
                 lineHeight: 1.2,
                 letterSpacing: "-0.01em",
+                marginBottom: "clamp(28px, 4vw, 40px)",
               }}
             >
               Engineer by craft,
@@ -60,9 +61,22 @@ export default function About() {
               by nature.
             </h2>
 
+            {/* Stats grid */}
+            <div className="grid grid-cols-2" style={{ gap: "clamp(10px, 1.5vw, 14px)" }}>
+              {stats.map((s) => (
+                <div key={s.label} style={{ padding: "16px 18px", borderRadius: 12, border: "1px solid var(--border-hover)", background: "var(--bg-card)" }}>
+                  <span style={{ display: "block", fontFamily: "var(--font-mono)", fontSize: "clamp(20px, 2.5vw, 26px)", fontWeight: 700, color: "var(--accent)", lineHeight: 1 }}>
+                    {s.value}
+                  </span>
+                  <span style={{ display: "block", fontFamily: "var(--font-mono)", fontSize: "9px", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--text-muted)", marginTop: 7 }}>
+                    {s.label}
+                  </span>
+                </div>
+              ))}
+            </div>
           </motion.div>
 
-          {/* ── Right ── */}
+          {/* ── Right: bio + education ── */}
           <motion.div
             variants={fadeUp} initial="hidden" animate={isInView ? "visible" : "hidden"}
             transition={{ delay: 0.15 } as never}
@@ -79,28 +93,13 @@ export default function About() {
               {personal.bio}
             </p>
 
-            <div style={{ width: 40, height: 1, background: "var(--accent)", opacity: 0.45, margin: "clamp(24px, 4vw, 36px) 0" }} />
-
-            {/* Stats row */}
-            <div className="grid grid-cols-2 sm:grid-cols-4" style={{ gap: "clamp(12px, 2vw, 20px)", marginBottom: "clamp(24px, 4vw, 36px)" }}>
-              {stats.map((s) => (
-                <div key={s.label} style={{ padding: "14px 16px", borderRadius: 10, border: "1px solid var(--border-hover)", background: "var(--bg-card)" }}>
-                  <span style={{ display: "block", fontFamily: "var(--font-mono)", fontSize: "clamp(18px, 2vw, 22px)", fontWeight: 700, color: "var(--accent)", lineHeight: 1 }}>
-                    {s.value}
-                  </span>
-                  <span style={{ display: "block", fontFamily: "var(--font-mono)", fontSize: "9px", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--text-muted)", marginTop: 6 }}>
-                    {s.label}
-                  </span>
-                </div>
-              ))}
-            </div>
+            <div style={{ width: 40, height: 1, background: "var(--accent)", opacity: 0.45, margin: "clamp(28px, 4vw, 40px) 0" }} />
 
             {/* Education */}
             <div>
               <p style={{ fontFamily: "var(--font-mono)", fontSize: "10px", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--text-muted)", marginBottom: 20 }}>
                 Education
               </p>
-
               <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
                 {[
                   { degree: "M.S. Computer Engineering", school: "Cal State Fullerton", period: "Jan '24 – Dec '25", note: "GPA 3.8" },

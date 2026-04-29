@@ -148,7 +148,14 @@ function SkillCard({ cluster, delay }: { cluster: SkillCluster; delay: number })
                   : "none",
               }}
             >
-              <SkillIcon name={skill.name} color={skill.color} />
+              <div style={{
+                width: 36, height: 36, borderRadius: 8, flexShrink: 0,
+                background: `${skill.color}18`,
+                border: `1px solid ${skill.color}35`,
+                display: "flex", alignItems: "center", justifyContent: "center",
+              }}>
+                <SkillIcon name={skill.name} color={skill.color} />
+              </div>
               <span
                 style={{
                   fontFamily: "var(--font-body)",
