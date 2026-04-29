@@ -155,11 +155,46 @@ function EegArt() {
   );
 }
 
+function BriefingArt() {
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div style={{ background: "#0a0805", border: "1px solid #2a1a05", borderRadius: 12, padding: 20 }}>
+        <p style={{ fontFamily: "monospace", fontSize: 10, color: "#f59e0b", letterSpacing: "0.12em", marginBottom: 14 }}>MORNING BRIEFING — 6:30 AM</p>
+        {[
+          { label: "Weather", value: "72°F · Sunny" },
+          { label: "Calendar", value: "3 events today" },
+          { label: "Commute", value: "28 min via 101" },
+          { label: "News", value: "5 headlines" },
+          { label: "Gmail", value: "4 unread" },
+        ].map(({ label, value }) => (
+          <div key={label} style={{ display: "flex", justifyContent: "space-between", padding: "7px 0", borderBottom: "1px solid #1a0e05" }}>
+            <span style={{ fontFamily: "monospace", fontSize: 11, color: "#7a5820" }}>{label}</span>
+            <span style={{ fontFamily: "monospace", fontSize: 11, color: "#f59e0b" }}>{value}</span>
+          </div>
+        ))}
+      </div>
+      <div style={{ background: "#0a0805", border: "1px solid #2a1a05", borderRadius: 12, padding: 20, display: "flex", flexDirection: "column", gap: 10 }}>
+        <p style={{ fontFamily: "monospace", fontSize: 10, color: "#f59e0b", letterSpacing: "0.12em" }}>CLAUDE BRIEFING</p>
+        <div style={{ background: "#14100a", borderRadius: 8, padding: "12px 14px", flex: 1 }}>
+          <p style={{ fontFamily: "monospace", fontSize: 11, color: "#7a5820", lineHeight: 1.7 }}>
+            Good morning! It&apos;s a clear 72°F day. You have a team standup at 9 AM and a 1:1 at 2 PM. Traffic is light — leave by 8:02 AM. Top story: Fed holds rates steady...
+          </p>
+        </div>
+        <div style={{ display: "flex", gap: 6 }}>
+          <span style={{ fontFamily: "monospace", fontSize: 9, color: "#f59e0b", border: "1px solid #2a1a05", padding: "2px 8px", borderRadius: 4 }}>claude-sonnet-4</span>
+          <span style={{ fontFamily: "monospace", fontSize: 9, color: "#f59e0b", border: "1px solid #2a1a05", padding: "2px 8px", borderRadius: 4 }}>5 sources</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 const artMap: Record<string, React.ReactNode> = {
   "rag-chatbot": <RagArt />,
   "food-delivery-app": <FoodArt />,
   "performance-testing": <PerfArt />,
   "eeg-deception-detection": <EegArt />,
+  "morning-briefing-bot": <BriefingArt />,
 };
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -305,20 +340,22 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           >
             <ArrowLeft size={13} /> All Projects
           </Link>
-          <a
-            href={project.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              display: "inline-flex", alignItems: "center", gap: 8, padding: "10px 22px",
-              border: `1px solid ${project.accent}55`, borderRadius: "100px",
-              fontFamily: "var(--font-mono)", fontSize: "11px", letterSpacing: "0.1em", textTransform: "uppercase",
-              color: project.accent, textDecoration: "none", background: `${project.accent}08`,
-              transition: "all 0.25s",
-            }}
-          >
-            View on GitHub ↗
-          </a>
+          {project.github && (
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: "inline-flex", alignItems: "center", gap: 8, padding: "10px 22px",
+                border: `1px solid ${project.accent}55`, borderRadius: "100px",
+                fontFamily: "var(--font-mono)", fontSize: "11px", letterSpacing: "0.1em", textTransform: "uppercase",
+                color: project.accent, textDecoration: "none", background: `${project.accent}08`,
+                transition: "all 0.25s",
+              }}
+            >
+              View on GitHub ↗
+            </a>
+          )}
         </div>
       </div>
     </div>

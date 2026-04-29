@@ -70,8 +70,19 @@ function SkillIcon({ name, color }: { name: string; color: string }) {
   const def = ICON[name];
   const SIZE = 24;
 
-  if (!def)      return <Cpu size={SIZE} color={color} strokeWidth={1.6} />;
+  if (!def) return <Cpu size={SIZE} color={color} strokeWidth={1.6} />;
   if (def.kind === "lucide") return <def.Icon size={SIZE} color={def.color} strokeWidth={1.6} />;
+  if (def.kind === "img") return (
+    <span
+      style={{
+        display: "block", width: SIZE, height: SIZE,
+        backgroundImage: `url(${def.src})`,
+        backgroundSize: "contain", backgroundRepeat: "no-repeat", backgroundPosition: "center",
+      }}
+      role="img"
+      aria-label={name}
+    />
+  );
   return (
     <i
       className={def.cls}
