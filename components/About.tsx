@@ -9,44 +9,6 @@ const fadeUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const } },
 };
 
-function StatCard({ value, label, delay = 0 }: { value: string; label: string; delay?: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-40px" });
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 16 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ delay, duration: 0.5, ease: [0.22, 1, 0.36, 1] as const }}
-      className="flex flex-col"
-    >
-      <span
-        style={{
-          fontFamily: "var(--font-display)",
-          fontSize: "clamp(28px, 4vw, 44px)",
-          fontWeight: 700,
-          color: "var(--accent)",
-          lineHeight: 1,
-          letterSpacing: "-0.02em",
-        }}
-      >
-        {value}
-      </span>
-      <span
-        className="mt-1"
-        style={{
-          fontFamily: "var(--font-mono)",
-          fontSize: "10px",
-          letterSpacing: "0.12em",
-          textTransform: "uppercase",
-          color: "var(--text-muted)",
-        }}
-      >
-        {label}
-      </span>
-    </motion.div>
-  );
-}
 
 export default function About() {
   const ref = useRef<HTMLElement>(null);
@@ -98,15 +60,6 @@ export default function About() {
               by nature.
             </h2>
 
-            {/* Stats — 2×2 grid */}
-            <div
-              className="grid grid-cols-2 mt-10"
-              style={{ gap: "clamp(20px, 4vw, 40px)" }}
-            >
-              {stats.map((s, i) => (
-                <StatCard key={s.label} value={s.value} label={s.label} delay={i * 0.1} />
-              ))}
-            </div>
           </motion.div>
 
           {/* ── Right ── */}
@@ -128,6 +81,20 @@ export default function About() {
 
             <div style={{ width: 40, height: 1, background: "var(--accent)", opacity: 0.45, margin: "clamp(24px, 4vw, 36px) 0" }} />
 
+            {/* Stats row */}
+            <div className="grid grid-cols-2 sm:grid-cols-4" style={{ gap: "clamp(12px, 2vw, 20px)", marginBottom: "clamp(24px, 4vw, 36px)" }}>
+              {stats.map((s) => (
+                <div key={s.label} style={{ padding: "14px 16px", borderRadius: 10, border: "1px solid var(--border-hover)", background: "var(--bg-card)" }}>
+                  <span style={{ display: "block", fontFamily: "var(--font-mono)", fontSize: "clamp(18px, 2vw, 22px)", fontWeight: 700, color: "var(--accent)", lineHeight: 1 }}>
+                    {s.value}
+                  </span>
+                  <span style={{ display: "block", fontFamily: "var(--font-mono)", fontSize: "9px", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--text-muted)", marginTop: 6 }}>
+                    {s.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+
             {/* Education */}
             <div>
               <p style={{ fontFamily: "var(--font-mono)", fontSize: "10px", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--text-muted)", marginBottom: 20 }}>
@@ -136,7 +103,7 @@ export default function About() {
 
               <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
                 {[
-                  { degree: "M.S. Computer Engineering", school: "Cal State Fullerton", period: "Jan '24 – Dec '25", note: "GPA 3.94" },
+                  { degree: "M.S. Computer Engineering", school: "Cal State Fullerton", period: "Jan '24 – Dec '25", note: "GPA 3.8" },
                   { degree: "B.Tech Electronics & Communication", school: "BVRIT Hyderabad", period: "Aug '17 – Aug '21", note: "" },
                 ].map((edu) => (
                   <div key={edu.degree} style={{ borderLeft: "2px solid var(--accent)", paddingLeft: 16 }}>

@@ -19,7 +19,7 @@ export const links = {
 export const stats = [
   { value: "2+", label: "Years Experience" },
   { value: "3.8", label: "GPA (M.S.)" },
-  { value: "4", label: "Featured Projects" },
+  { value: "5", label: "Projects" },
   { value: "40+", label: "Technologies" },
 ]
 
@@ -132,6 +132,7 @@ export const projects = [
       "Per-source error resilience — partial briefings work if any source fails",
       "Plain-text fallback if Claude API is unavailable",
     ],
+    featured: true,
     role: "Solo Developer",
     year: "2025",
     duration: "1 month",
@@ -199,7 +200,6 @@ export const projects = [
     description:
       "Load-tested a Java insurance microservices platform under 1K+ simulated concurrent users. Traced 3× latency spikes to N+1 query patterns and undersized connection pools. Applied query optimization and pool tuning — delivering a 25% throughput increase and 40% reduction in database wait time in production.",
     calloutBadge: "25% throughput ↑  ·  P99 latency ↓ 40%",
-    featured: true,
     overview:
       "Architected a comprehensive performance testing framework to identify and eliminate system bottlenecks before production. By simulating 1,000+ concurrent users across realistic transaction mixes, pinpointed N+1 query patterns and under-sized connection pools as the primary culprits behind latency spikes. Applied query optimization and connection pool tuning that boosted overall throughput by 25% in production.",
     tech: ["JMeter", "LoadRunner", "SQL", "Python", "Grafana"],
